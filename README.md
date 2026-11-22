@@ -1,3 +1,5 @@
+<p><img src="logo.svg" alt="Mouse 33" height="64"></p>
+
 # Mouse 33
 
 A lightweight (~33 g) skeleton shell for the Logitech G305. Five printed parts re-house the stock board, sensor, switches and AAA battery.
