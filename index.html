@@ -232,7 +232,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .gal-main{aspect-ratio:5/4;box-shadow:var(--shadow)}
 .gal-main .sil{transition:opacity .35s var(--ease),transform .6s var(--ease)}
 .gal-main.swap .sil{opacity:0;transform:scale(.96)}
-.gal-thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.gal-thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;margin-top:12px}
 .gal-thumbs .ph{aspect-ratio:1;border-radius:14px;cursor:pointer;outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s,transform .3s var(--ease)}
 .gal-thumbs .ph:hover{transform:translateY(-2px)}
 .gal-thumbs .ph.sel{outline-color:var(--blue)}
@@ -479,7 +479,7 @@ const IMG = {
   part_front:"Front piece with the click pads", part_back:"Ribbed back frame", part_tray:"AAA battery tray",
   assembled_34:"Assembled Mouse 33, three-quarter view", top:"Top-down view", underside:"Underside with skates and sensor lens",
   pcb_macro:"G305 main board close-up", sensor_macro:"HERO sensor lens from below", wiring:"Battery lead and tray",
-  side_profile:"Side profile", switch_macro:"D2FC-F-7N switch board", rear_34:"Rear three-quarter view", front:"Front view"
+  side_profile:"Side profile", switch_macro:"D2FC-F-7N switch board", rear_34:"Rear three-quarter view", front:"Front view", hero_wide:"Assembled Mouse 33, wide studio shot"
 };
 const COMMON = [["Weight","~33 g with battery"],["Length","84.9 mm"],["Width","57.1 mm"],["Height","25.7 mm"],["Board","Logitech G305 (stock)"],["Sensor","HERO"],["Power","1 × AAA"]];
 const P = {
@@ -489,7 +489,7 @@ const P = {
     incl:[["mouse33_front.stl","2.9 MB"],["mouse33_front_standing.stl","2.8 MB","same part, stood up for printing"],["mouse33_back.stl","3.7 MB"],["mouse33_batterytray.stl","91 KB"],["mouse33_switchmountL.stl","35 KB"],["mouse33_switchmountR.stl","41 KB"]].map(([f,sz,n]) => `<a class="dl" href="files/${f}" download>${f}</a> <span class="mute">· ${sz}${n ? " · " + n : ""}</span>`),
     note:"Licensed CC BY-SA. Remix it, share it, keep the credit.",
     specs:[["Parts","5 STL"],["Material","PLA"],...COMMON],
-    gallery:["kit_34","kit_layout","part_front","part_back"],
+    gallery:["kit_34","kit_layout","exploded_34","part_front","part_back","part_tray","assembled_34","hero_wide","front","rear_34","top","side_profile","underside","pcb_macro","sensor_macro","switch_macro","wiring"],
     feat:[["Front piece","Click pads over an X-brace floor.","part_front"],["Back frame","Ribbed side grips and an open palm.","part_back"],["Battery tray","Holds the AAA lengthwise.","part_tray"]]}
 };
 const ph = (key, lazy = true) => `<div class="ph img"><img src="img/${key}.webp" alt="${IMG[key] || ""}"${lazy ? ' loading="lazy"' : ""}></div>`;
@@ -501,7 +501,7 @@ function render(key){
   $("p-incl").innerHTML = p.incl.map(i => `<li>${i}</li>`).join("");
   $("p-note").textContent = p.note;
   $("p-specs").innerHTML = p.specs.map(([a,b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("");
-  $("p-thumbs").innerHTML = p.gallery.map(g => ph(g, false)).join("");
+  $("p-thumbs").innerHTML = p.gallery.map((g, i) => ph(g, i > 7)).join("");
   const thumbs = [...$("p-thumbs").children], main = $("p-main");
   const setMain = (i, anim) => {
     const apply = () => { const im = main.querySelector("img"); im.src = `img/${p.gallery[i]}.webp`; im.alt = IMG[p.gallery[i]] || "";
