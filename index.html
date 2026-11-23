@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mouse 33</title>
-<meta name="description" content="Mouse 33: a ~33 g skeleton shell for the Logitech G305. Free STL files, printed kits and assembled mice coming soon.">
+<meta name="description" content="Mouse 33: a ~33 g skeleton shell for the Logitech G305. Free STL files under CC BY-SA.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -209,6 +209,9 @@ section.blk{padding-block:clamp(120px,14vw,200px)}
 .more{font-size:14px;font-weight:500;color:var(--blue);display:inline-flex;gap:6px;align-items:center}
 .more .ar{transition:transform .3s var(--ease)} .card:hover .more .ar{transform:translateX(4px)}
 .card.off .more{color:var(--mute)}
+.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card.need:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.need-list{margin:2px 0 0;padding-left:18px;color:var(--mute);font-size:15px;display:flex;flex-direction:column;gap:6px}
 
 /* specs + closing */
 .specgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
@@ -289,7 +292,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <nav class="nav" aria-label="Main">
       <a href="#top" data-nav="top">Overview</a>
       <a href="#inside" data-nav="inside">Inside</a>
-      <a href="#versions" data-nav="versions">Versions</a>
+      <a href="#versions" data-nav="versions">Build</a>
       <a href="#specs" data-nav="specs">Specs</a>
       <a href="#alpha" data-nav="alpha">Files</a>
     </nav>
@@ -310,7 +313,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <div class="eyebrow in">G305 mod kit · revision 33</div>
+          <div class="eyebrow in">G305 mod · revision 33</div>
           <h1 class="in d1" style="margin-top:22px">A G305,<br>down to<br><em>the frame.</em></h1>
         </div>
         <div style="display:flex;flex-direction:column;gap:28px;align-items:flex-start;min-width:0">
@@ -358,10 +361,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <section class="blk" id="versions" style="background:var(--bg-2)">
     <div class="wrap">
       <div class="blk-head">
-        <div><div class="eyebrow rv">Versions</div><h2 class="rv d1">Pick how much<br>you build.</h2></div>
-        <p class="lede rv d2" style="max-width:36ch">The files stay free. Printed kits and assembled mice are on the way.</p>
+        <div><div class="eyebrow rv">Build it</div><h2 class="rv d1">Free files,<br>your G305.</h2></div>
+        <p class="lede rv d2" style="max-width:36ch">The printed parts are free under CC BY-SA. Everything else comes out of the G305 you already have.</p>
       </div>
-      <div class="cards">
+      <div class="cards two">
         <a class="card rv" href="#alpha">
           <div class="ph img"><img src="img/kit_34.webp" alt="The five printed Mouse 33 parts laid out" loading="lazy"></div>
           <div class="body">
@@ -370,22 +373,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
             <div class="row" style="margin-top:8px"><span class="price">Free</span><span class="more">View files <span class="ar">→</span></span></div>
           </div>
         </a>
-        <a class="card off rv d1" href="#beta">
+        <div class="card need rv d1">
           <div class="ph img"><img src="img/exploded_34.webp" alt="Mouse 33 exploded into its layers" loading="lazy"></div>
           <div class="body">
-            <div class="row"><h3>Mouse 33 Beta</h3><span class="chip soon">Coming soon</span></div>
-            <div class="mute" style="font-size:15px">Printed shell, bring your own G305</div>
-            <div class="row" style="margin-top:8px"><span class="price">$30</span><span class="more">Details <span class="ar">→</span></span></div>
+            <h3>What you'll need</h3>
+            <ul class="need-list"><li>A Logitech G305. Its board, sensor, switches and screws all get reused.</li><li>Any FDM printer and some PLA</li><li>One AAA battery (lithium is lightest)</li></ul>
           </div>
-        </a>
-        <a class="card off rv d2" href="#sigma">
-          <div class="ph img"><img src="img/assembled_34.webp" alt="Fully assembled Mouse 33" loading="lazy"></div>
-          <div class="body">
-            <div class="row"><h3>Mouse 33 Sigma</h3><span class="chip soon">Coming soon</span></div>
-            <div class="mute" style="font-size:15px">Fully assembled G305, ready to use</div>
-            <div class="row" style="margin-top:8px"><span class="price">$50</span><span class="more">Details <span class="ar">→</span></span></div>
-          </div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
@@ -412,7 +406,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <main id="v-product" hidden>
   <div class="pp"><div class="wrap">
-    <div class="crumb in"><a href="#versions">Versions</a><span>/</span><span id="p-crumb"></span></div>
+    <div class="crumb in"><a href="#versions">Build</a><span>/</span><span id="p-crumb"></span></div>
     <div class="pp-grid">
       <div class="in d1">
         <div class="ph img gal-main" id="p-main"><img src="img/kit_layout.webp" alt=""></div>
@@ -430,10 +424,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </aside>
     </div>
     <div class="feat" id="p-feat"></div>
-    <div class="others">
-      <div class="eyebrow">Other versions</div>
-      <div class="cards" id="p-others" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-top:24px"></div>
-    </div>
   </div></div>
 </main>
 
@@ -500,23 +490,7 @@ const P = {
     note:"Licensed CC BY-SA. Remix it, share it, keep the credit.",
     specs:[["Parts","5 STL"],["Material","PLA"],...COMMON],
     gallery:["kit_34","kit_layout","part_front","part_back"],
-    feat:[["Front piece","Click pads over an X-brace floor.","part_front"],["Back frame","Ribbed side grips and an open palm.","part_back"],["Battery tray","Holds the AAA lengthwise.","part_tray"]]},
-  beta:{name:"Mouse 33 Beta",eyebrow:"Printed shell kit",live:false,price:"$30",
-    desc:"All five parts printed and cleaned up. You bring a G305 and move its internals over.",
-    cta:'<span class="pill ghost" aria-disabled="true">Coming soon</span><a class="pill" href="#alpha">Print it free instead</a>',
-    incl:["Front, back and battery tray","Left and right switch mounts","Assembly guide"],
-    note:"You'll need your own Logitech G305 to finish the build. Its screws are reused for assembly.",
-    specs:[["Parts","5 printed"],["Material","White PLA"],...COMMON],
-    gallery:["exploded_34","kit_layout","part_front","part_tray"],
-    feat:[["Printed surface","Clean layer lines in white PLA.","part_front"],["The kit","Every part, nothing glued.","kit_layout"],["Back frame","The biggest print, still one piece.","part_back"]]},
-  sigma:{name:"Mouse 33 Sigma",eyebrow:"Fully assembled",live:false,price:"$50",
-    desc:"A finished Mouse 33 with G305 internals, wired, tested and ready for its receiver.",
-    cta:'<span class="pill ghost" aria-disabled="true">Coming soon</span><a class="pill" href="#alpha">Print it free instead</a>',
-    incl:["Assembled Mouse 33","G305 board, sensor and switches","Lightspeed USB receiver","AAA lithium cell"],
-    note:"Assembled and tested before it ships.",
-    specs:[["Build","Assembled, tested"],["Wireless","Lightspeed 2.4 GHz"],...COMMON],
-    gallery:["assembled_34","top","underside","pcb_macro"],
-    feat:[["HERO sensor","The stock G305 sensor, seen from below.","sensor_macro"],["Wiring","Battery lead routed out of the tray.","wiring"],["Switches","D2FC-F-7N boards on printed mounts.","switch_macro"]]}
+    feat:[["Front piece","Click pads over an X-brace floor.","part_front"],["Back frame","Ribbed side grips and an open palm.","part_back"],["Battery tray","Holds the AAA lengthwise.","part_tray"]]}
 };
 const ph = (key, lazy = true) => `<div class="ph img"><img src="img/${key}.webp" alt="${IMG[key] || ""}"${lazy ? ' loading="lazy"' : ""}></div>`;
 function render(key){
@@ -538,13 +512,12 @@ function render(key){
     t.onclick = () => setMain(i, true); t.onkeydown = e => { if (e.key==="Enter"||e.key===" ") { e.preventDefault(); setMain(i, true); } }; });
   setMain(0);
   $("p-feat").innerHTML = p.feat.map(([t,c,im], i) => `<div class="rv${i ? " d" + i : ""}">${ph(im)}<h3>${t}</h3><p>${c}</p></div>`).join("");
-  $("p-others").innerHTML = Object.keys(P).filter(k => k!==key).map(k => { const o = P[k];
-    return `<a class="card ${o.live?"":"off"}" href="#${k}">${ph(o.gallery[0])}<div class="body"><div class="row"><h3>${o.name}</h3><span class="chip ${o.live?"live":"soon"}">${o.live?"Available":"Coming soon"}</span></div><div class="row"><span class="price">${o.price}</span><span class="more">View <span class="ar">→</span></span></div></div></a>`; }).join("");
 }
 
 /* routing */
 let first = true;
 function route(){
+  if (/^#(beta|sigma)$/.test(location.hash)) history.replaceState(null, "", "#alpha");
   const h = location.hash.slice(1), prod = P[h], wasProd = !$("v-product").hidden;
   const apply = () => {
     $("v-home").hidden = !!prod; $("v-product").hidden = !prod;
