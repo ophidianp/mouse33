@@ -228,15 +228,26 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .crumb{font-size:13px;color:var(--mute);display:flex;gap:8px;margin-bottom:32px}
 .crumb a{transition:color .2s}.crumb a:hover{color:var(--ink)}
 .pp-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:72px;align-items:start}
-@media (max-width:980px){.pp-grid{grid-template-columns:1fr;gap:48px}}
-.gal-main{aspect-ratio:5/4;box-shadow:var(--shadow)}
-.gal-main .sil{transition:opacity .35s var(--ease),transform .6s var(--ease)}
-.gal-main.swap .sil{opacity:0;transform:scale(.96)}
-.gal-thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;margin-top:12px}
-.gal-thumbs .ph{aspect-ratio:1;border-radius:14px;cursor:pointer;outline:2px solid transparent;outline-offset:-2px;transition:outline-color .25s,transform .3s var(--ease)}
-.gal-thumbs .ph:hover{transform:translateY(-2px)}
-.gal-thumbs .ph.sel{outline-color:var(--blue)}
-.gal-thumbs .ph .tag{font-size:10px;margin:7px;padding:2px 6px}
+@media (max-width:980px){.pp-grid{grid-template-columns:minmax(0,1fr);gap:48px}}
+.pp-grid>*{min-width:0}
+.gal-main{position:relative;aspect-ratio:5/4;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);outline:none}
+.gal-main:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.gal-track{display:flex;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain}
+.gal-track::-webkit-scrollbar,.gal-thumbs::-webkit-scrollbar{display:none}
+.gal-track .ph{flex:0 0 100%;height:100%;border-radius:0;scroll-snap-align:start;scroll-snap-stop:always}
+.gal-track .ph.img:hover img{transform:none}
+.gal-nav{position:absolute;top:50%;margin-top:-21px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--hdr);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow);transition:opacity .3s var(--ease),transform .3s var(--ease),background .3s,color .3s}
+.gal-nav svg{width:18px;height:18px}
+.gal-nav.prev{left:14px} .gal-nav.next{right:14px}
+.gal-nav:hover{transform:scale(1.07);background:var(--blue);border-color:var(--blue);color:#fff}
+.gal-nav[disabled]{opacity:.3;pointer-events:none}
+@media (hover:none){.gal-nav{display:none}}
+.gal-count{position:absolute;right:14px;bottom:14px;font-family:var(--f-mono);font-size:11px;color:var(--mute);background:var(--tag);border:1px solid var(--line);border-radius:7px;padding:3px 9px;font-variant-numeric:tabular-nums;pointer-events:none}
+.gal-thumbs{position:relative;display:flex;gap:10px;margin-top:12px;padding:2px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;scrollbar-width:none}
+.gal-thumbs .ph{flex:0 0 84px;aspect-ratio:1;border-radius:14px;cursor:pointer;scroll-snap-align:center;outline:2px solid transparent;outline-offset:-2px;opacity:.55;transition:outline-color .25s,opacity .25s}
+.gal-thumbs .ph:hover{opacity:.9}
+.gal-thumbs .ph.sel{outline-color:var(--blue);opacity:1}
+@media (prefers-reduced-motion:reduce){.gal-track,.gal-thumbs{scroll-behavior:auto}}
 .buy{position:sticky;top:calc(env(safe-area-inset-top,0px) + 100px);display:flex;flex-direction:column;gap:22px}
 @media (max-width:980px){.buy{position:static}}
 .buy .price{font-size:42px}
@@ -409,7 +420,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="crumb in"><a href="#versions">Build</a><span>/</span><span id="p-crumb"></span></div>
     <div class="pp-grid">
       <div class="in d1">
-        <div class="ph img gal-main" id="p-main"><img src="img/kit_layout.webp" alt=""></div>
+        <div class="gal-main" id="p-main" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Renders, use the arrow keys to browse">
+          <div class="gal-track" id="p-track"></div>
+          <button class="gal-nav prev" id="p-prev" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button class="gal-nav next" id="p-next" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+          <span class="gal-count" id="p-count" aria-live="polite"></span>
+        </div>
         <div class="gal-thumbs" id="p-thumbs"></div>
       </div>
       <aside class="buy in d2">
@@ -501,16 +516,27 @@ function render(key){
   $("p-incl").innerHTML = p.incl.map(i => `<li>${i}</li>`).join("");
   $("p-note").textContent = p.note;
   $("p-specs").innerHTML = p.specs.map(([a,b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("");
-  $("p-thumbs").innerHTML = p.gallery.map((g, i) => ph(g, i > 7)).join("");
-  const thumbs = [...$("p-thumbs").children], main = $("p-main");
-  const setMain = (i, anim) => {
-    const apply = () => { const im = main.querySelector("img"); im.src = `img/${p.gallery[i]}.webp`; im.alt = IMG[p.gallery[i]] || "";
-      thumbs.forEach((t,j) => t.classList.toggle("sel", j===i)); main.classList.remove("swap"); };
-    if (anim) { main.classList.add("swap"); setTimeout(apply, 220); } else apply();
+  const track = $("p-track"), strip = $("p-thumbs"), n = p.gallery.length;
+  track.innerHTML = p.gallery.map((g, i) => `<div class="ph img" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${n}"><img src="img/${g}.webp" alt="${IMG[g] || ""}"${i ? ' loading="lazy"' : ""}></div>`).join("");
+  strip.innerHTML = p.gallery.map((g, i) => ph(g, i > 7)).join("");
+  const thumbs = [...strip.children], slideW = () => track.getBoundingClientRect().width; let cur = -1, lock = null;
+  const mark = i => {
+    if (i === cur) return; cur = i;
+    thumbs.forEach((t, j) => { t.classList.toggle("sel", j === i); t.setAttribute("aria-current", j === i ? "true" : "false"); });
+    $("p-count").textContent = `${i + 1} / ${n}`; $("p-prev").disabled = i === 0; $("p-next").disabled = i === n - 1;
+    [i - 1, i, i + 1].forEach(k => { const im = track.children[k] && track.children[k].querySelector("img"); if (im) im.loading = "eager"; });
+    const t = thumbs[i]; strip.scrollTo({ left: t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2 });
   };
-  thumbs.forEach((t,i) => { t.tabIndex = 0; t.setAttribute("role","button"); t.setAttribute("aria-label","Show " + (IMG[p.gallery[i]] || "image"));
-    t.onclick = () => setMain(i, true); t.onkeydown = e => { if (e.key==="Enter"||e.key===" ") { e.preventDefault(); setMain(i, true); } }; });
-  setMain(0);
+  const go = i => { i = Math.max(0, Math.min(n - 1, i)); lock = i; track.scrollTo({ left: i * slideW() }); mark(i); };
+  const at = () => Math.round(track.scrollLeft / slideW());
+  track.onscroll = () => { if (lock === null) mark(at()); else if (at() === lock && Math.abs(track.scrollLeft / slideW() - lock) < .01) lock = null; };
+  track.onscrollend = () => { lock = null; mark(at()); };
+  thumbs.forEach((t, i) => { t.tabIndex = 0; t.setAttribute("role", "button"); t.setAttribute("aria-label", "Show " + (IMG[p.gallery[i]] || "image"));
+    t.onclick = () => go(i); t.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(i); } }; });
+  const base = () => lock === null ? cur : lock;
+  $("p-prev").onclick = () => go(base() - 1); $("p-next").onclick = () => go(base() + 1);
+  $("p-main").onkeydown = e => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); go(base() + (e.key === "ArrowRight" ? 1 : -1)); } };
+  track.scrollTo({ left: 0, behavior: "instant" }); strip.scrollTo({ left: 0, behavior: "instant" }); mark(0);
   $("p-feat").innerHTML = p.feat.map(([t,c,im], i) => `<div class="rv${i ? " d" + i : ""}">${ph(im)}<h3>${t}</h3><p>${c}</p></div>`).join("");
 }
 
