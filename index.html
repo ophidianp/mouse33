@@ -353,7 +353,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div class="eyebrow">Inside</div>
         <h2 style="margin-top:18px">Take it apart as you scroll.</h2>
         <ol class="steps" id="steps">
-          <li class="on" data-i="0"><div class="t">Printed frame <small>01 / 04</small></div><p>Front piece with the click pads, a ribbed palm frame, and the battery tray. White PLA, no supports.</p></li>
+          <li class="on" data-i="0"><div class="t">Printed frame <small>01 / 04</small></div><p>Front piece with the click pads, a ribbed palm frame, and the battery tray. White PETG, no supports.</p></li>
           <li data-i="1"><div class="t">Switches and wheel <small>02 / 04</small></div><p>The G305's D2FC-F-7N boards sit on printed mounts under each pad, with the stock wheel and encoder between them.</p></li>
           <li data-i="2"><div class="t">AAA power <small>03 / 04</small></div><p>One AAA lithium cell rides lengthwise in the tray, wired straight to the board.</p></li>
           <li data-i="3"><div class="t">G305 main board <small>04 / 04</small></div><p>The full-length stock board with the HERO sensor and Lightspeed radio, visible through the frame.</p></li>
@@ -389,7 +389,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <div class="ph img"><img src="img/exploded_34.webp" alt="Mouse 33 exploded into its layers" loading="lazy"></div>
           <div class="body">
             <h3>What you'll need</h3>
-            <ul class="need-list"><li>A Logitech G305. Its board, sensor, switches and screws all get reused.</li><li>Any FDM printer and some PLA</li><li>One AAA battery (lithium is lightest)</li></ul>
+            <ul class="need-list"><li>A Logitech G305. Its board, sensor, switches and screws all get reused.</li><li>A 3D printer</li><li>One AAA battery (lithium is lightest)</li></ul>
           </div>
         </div>
       </div>
@@ -402,7 +402,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <dl class="specgrid rv" style="margin:0">
         <div><dt>Weight</dt><dd>~33 g with battery</dd></div><div><dt>Length</dt><dd>84.9 mm</dd></div><div><dt>Width × height</dt><dd>57.1 × 25.7 mm</dd></div>
         <div><dt>Board</dt><dd>Logitech G305, stock</dd></div><div><dt>Sensor</dt><dd>HERO</dd></div><div><dt>Wireless</dt><dd>Lightspeed 2.4 GHz</dd></div>
-        <div><dt>Switches</dt><dd>D2FC-F-7N</dd></div><div><dt>Power</dt><dd>1 × AAA</dd></div><div><dt>Printed parts</dt><dd>5, PLA</dd></div>
+        <div><dt>Switches</dt><dd>D2FC-F-7N</dd></div><div><dt>Power</dt><dd>1 × AAA</dd></div><div><dt>Printed parts</dt><dd>5, PETG</dd></div>
       </dl>
     </div>
   </section>
@@ -504,7 +504,7 @@ const P = {
     cta:'<a class="pill blue" href="files/mouse33_stl.zip" download>Download all, .zip · 4.1 MB <span class="ar">↓</span></a><a class="pill" href="https://www.thingiverse.com/thing:7298725">Thingiverse page</a>',
     incl:[["mouse33_front.stl","2.9 MB"],["mouse33_front_standing.stl","2.8 MB","same part, stood up for printing"],["mouse33_back.stl","3.7 MB"],["mouse33_batterytray.stl","91 KB"],["mouse33_switchmountL.stl","35 KB"],["mouse33_switchmountR.stl","41 KB"]].map(([f,sz,n]) => `<a class="dl" href="files/${f}" download>${f}</a> <span class="mute">· ${sz}${n ? " · " + n : ""}</span>`),
     note:"Licensed CC BY-SA. Remix it, share it, keep the credit.",
-    specs:[["Parts","5 STL"],["Material","PLA"],...COMMON],
+    specs:[["Parts","5 STL"],["Material","PETG"],...COMMON],
     gallery:["kit_34","kit_layout","exploded_34","part_front","part_back","part_tray","assembled_34","hero_wide","front","rear_34","top","side_profile","underside","pcb_macro","sensor_macro","switch_macro","wiring"],
     feat:[["Front piece","Click pads over an X-brace floor.","part_front"],["Back frame","Ribbed side grips and an open palm.","part_back"],["Battery tray","Holds the AAA lengthwise.","part_tray"]]}
 };
